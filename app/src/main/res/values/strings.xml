@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Github Repo Task</string>
+    <string name="repo_name">Repo Name:</string>
+    <string name="repo_url">Repo URL:</string>
+    <string name="forks">Forks:</string>
+    <string name="watchers">Watchers:</string>
+</resources>
