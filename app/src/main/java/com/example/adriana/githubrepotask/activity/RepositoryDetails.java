@@ -60,7 +60,7 @@ public class RepositoryDetails extends AppCompatActivity {
         call.enqueue(new Callback<Readme>() {
             @Override
             public void onResponse(Call<Readme> call, Response<Readme> response) {
-                String responseReadme = response.body().toString();
+                String responseReadme = response.body().getReadme();
                 readme = convertToString(responseReadme);
                 readmeTv.setText(readme);
             }

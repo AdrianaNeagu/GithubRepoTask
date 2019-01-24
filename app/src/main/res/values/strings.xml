@@ -2,7 +2,7 @@
     <string name="app_name">Github Repo Task</string>
     <string name="repo_name">Repo Name:</string>
     <string name="repo_id">Repo Id:</string>
-    <string name="readme">README</string>
+    <string name="readme">README:</string>
     <string name="repo_owner">Repo Owner:</string>
     <string name="repo_url">Repo URL:</string>
     <string name="repo_forks">Repo Forks:</string>
