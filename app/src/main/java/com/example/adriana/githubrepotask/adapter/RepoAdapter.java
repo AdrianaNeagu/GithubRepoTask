@@ -47,11 +47,12 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, RepositoryDetails.class);
-                intent.putExtra("user", repository.getRepoOwner().getOwnerLogin());
-                intent.putExtra("forks", repository.getRepoForks());
-                intent.putExtra("watchers", repository.getRepoWatchers());
-                intent.putExtra("repoName", repository.getRepoName());
-                intent.putExtra("repoUrl", repository.getRepoUrl());
+                intent.putExtra("repo", repository);
+//                intent.putExtra("user", repository.getRepoOwner().getOwnerLogin());
+//                intent.putExtra("forks", repository.getRepoForks());
+//                intent.putExtra("watchers", repository.getRepoWatchers());
+//                intent.putExtra("repoName", repository.getRepoName());
+//                intent.putExtra("repoUrl", repository.getRepoUrl());
                 context.startActivity(intent);
             }
         });

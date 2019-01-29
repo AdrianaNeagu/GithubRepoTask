@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.adriana.githubrepotask.R;
 import com.example.adriana.githubrepotask.model.Readme;
 import com.example.adriana.githubrepotask.model.RepoResponse;
+import com.example.adriana.githubrepotask.model.Repository;
 import com.example.adriana.githubrepotask.rest.ApiClient;
 import com.example.adriana.githubrepotask.rest.ApiInterface;
 
@@ -34,6 +35,8 @@ public class RepositoryDetails extends AppCompatActivity {
     private String repoUrl = "";
     private String readme = "";
 
+    Repository repository;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +49,15 @@ public class RepositoryDetails extends AppCompatActivity {
         repoUrlTv = findViewById(R.id.repo_url_tv);
         readmeTv = findViewById(R.id.readme_tv);
 
-        getIncomingIntent();
+        if(getIntent().hasExtra("repo")) {
+            repository = getIntent().getExtras().getParcelable("repo");
+        }
 
-        userTv.setText(user);
-        forksTv.setText(forks);
-        watchersTv.setText(watchers);
-        repoNameTv.setText(repoName);
-        repoUrlTv.setText(repoUrl);
+        userTv.setText(repository.getRepoOwner().getOwnerLogin());
+        forksTv.setText(repository.getRepoForks());
+        watchersTv.setText(repository.getRepoWatchers());
+        repoNameTv.setText(repository.getRepoName());
+        repoUrlTv.setText(repository.getRepoUrl());
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -77,18 +82,5 @@ public class RepositoryDetails extends AppCompatActivity {
         byte[] data = Base64.decode(base64, Base64.DEFAULT);
         return new String(data, StandardCharsets.UTF_8);
     }
-
-    public void getIncomingIntent() {
-        if (getIntent().hasExtra("user") && getIntent().hasExtra("forks")
-                && getIntent().hasExtra("watchers") && getIntent().hasExtra("repoName")
-                && getIntent().hasExtra("repoUrl")) {
-            user = getIntent().getStringExtra("user");
-            forks = getIntent().getStringExtra("forks");
-            watchers = getIntent().getStringExtra("watchers");
-            repoName = getIntent().getStringExtra("repoName");
-            repoUrl = getIntent().getStringExtra("repoUrl");
-        }
-    }
-
 
 }

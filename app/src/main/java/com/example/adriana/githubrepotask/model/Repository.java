@@ -1,10 +1,13 @@
 package com.example.adriana.githubrepotask.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Repository {
+public class Repository implements Parcelable {
 
     @SerializedName("id")
     private String repoId;
@@ -55,5 +58,15 @@ public class Repository {
 
     public Owner getRepoOwner() {
         return repoOwner;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }
