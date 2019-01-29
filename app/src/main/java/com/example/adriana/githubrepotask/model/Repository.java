@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Repository implements Parcelable {
 
     @SerializedName("id")
@@ -35,6 +33,26 @@ public class Repository implements Parcelable {
         this.repoWatchers = repoWatchers;
         this.repoOwner = repoOwner;
     }
+
+    protected Repository(Parcel in) {
+        repoId = in.readString();
+        repoName = in.readString();
+        repoUrl = in.readString();
+        repoForks = in.readString();
+        repoWatchers = in.readString();
+    }
+
+    public static final Creator<Repository> CREATOR = new Creator<Repository>() {
+        @Override
+        public Repository createFromParcel(Parcel in) {
+            return new Repository(in);
+        }
+
+        @Override
+        public Repository[] newArray(int size) {
+            return new Repository[size];
+        }
+    };
 
     public String getRepoId() {
         return repoId;
@@ -67,6 +85,10 @@ public class Repository implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(repoId);
+        dest.writeString(repoName);
+        dest.writeString(repoUrl);
+        dest.writeString(repoForks);
+        dest.writeString(repoWatchers);
     }
 }

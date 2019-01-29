@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.example.adriana.githubrepotask.R;
 import com.example.adriana.githubrepotask.model.Readme;
-import com.example.adriana.githubrepotask.model.RepoResponse;
 import com.example.adriana.githubrepotask.model.Repository;
 import com.example.adriana.githubrepotask.rest.ApiClient;
 import com.example.adriana.githubrepotask.rest.ApiInterface;
@@ -29,10 +28,6 @@ public class RepositoryDetails extends AppCompatActivity {
     private TextView readmeTv;
 
     private String user = "";
-    private String forks = "";
-    private String watchers = "";
-    private String repoName = "";
-    private String repoUrl = "";
     private String readme = "";
 
     Repository repository;
@@ -49,11 +44,11 @@ public class RepositoryDetails extends AppCompatActivity {
         repoUrlTv = findViewById(R.id.repo_url_tv);
         readmeTv = findViewById(R.id.readme_tv);
 
-        if(getIntent().hasExtra("repo")) {
+        if(getIntent().hasExtra("repo") && getIntent().hasExtra("user")) {
             repository = getIntent().getExtras().getParcelable("repo");
+            user = getIntent().getStringExtra("user");
         }
 
-        userTv.setText(repository.getRepoOwner().getOwnerLogin());
         forksTv.setText(repository.getRepoForks());
         watchersTv.setText(repository.getRepoWatchers());
         repoNameTv.setText(repository.getRepoName());
@@ -61,7 +56,7 @@ public class RepositoryDetails extends AppCompatActivity {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Readme> call = apiInterface.getReadmeFile(user, repoName);
+        Call<Readme> call = apiInterface.getReadmeFile(user, repository.getRepoName());
         call.enqueue(new Callback<Readme>() {
             @Override
             public void onResponse(Call<Readme> call, Response<Readme> response) {
